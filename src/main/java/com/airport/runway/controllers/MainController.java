@@ -1,4 +1,4 @@
-package com.airport.runway.controller;
+package com.airport.runway.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
