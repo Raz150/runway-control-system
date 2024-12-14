@@ -1,24 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="Layout/layout :: head"></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Page</title>
+    <!-- Include head fragment from Layout/layout.html -->
+    <th:block th:replace="Layout/layout :: head"></th:block>
+</head>
 <body>
-<main>
-    <h1>Table Page</h1>
-    <p th:text="'Hello, ' + ${name} + '!'" />
-    <table class="table">
+<!-- Include navbar fragment from Layout/layout.html -->
+<th:block th:replace="Layout/layout :: navbar"></th:block>
+
+<div class="container mt-4">
+    <h2>Table Example</h2>
+    <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>Data 1</td>
-            <td>Data 2</td>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>john@example.com</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Jane Doe</td>
+            <td>jane@example.com</td>
         </tr>
         </tbody>
     </table>
-</main>
+</div>
+
+<!-- Include footer fragment from Layout/layout.html -->
+<th:block th:replace="Layout/layout :: footer"></th:block>
 </body>
 </html>

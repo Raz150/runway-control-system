@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
     @GetMapping("/table")
-    public String index(Model model) {
-        model.addAttribute("name", "Spring Boot");
-        return "table"; // Refers to src/main/resources/templates/index.html
+    public String showTable(Model model) {
+        model.addAttribute("name", "John Doe");
+        // Optional: Add title directly to the model if needed
+        model.addAttribute("pageTitle", "Table Page");
+        return "table";
     }
 }
