@@ -20,7 +20,7 @@ public class FlightController {
     @Autowired
     private ArrivalService arrivalService;
 
-    @PostMapping("/generateflight2")
+    @PostMapping("/generateflight")
     public Map<String, Object> postGenerateFlight2() { 
         Map<String, Object> newFlight = arrivalService.addFlightOnArrival();
         System.out.println("Flight incoming - " + newFlight);
@@ -28,7 +28,7 @@ public class FlightController {
     }
 
     // Display all flights
-    @GetMapping("/getallflights")
+    @GetMapping("/displayincomingflights")
     public Iterable<Map<String, Object>> getAllFlights() {
         Iterable<Map<String, Object>> flights = arrivalService.getFlightsOnArrival();
         return flights;
