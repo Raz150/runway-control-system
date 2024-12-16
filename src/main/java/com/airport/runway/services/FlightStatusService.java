@@ -14,8 +14,8 @@ public class FlightStatusService {
     private List<FlightStatus> flightStatuses = Arrays.asList(FlightStatus.values());
 
     @Autowired
-    public FlightStatusService(Flight flight){
-        this.flight = flight;
+    public FlightStatusService(){
+
     }
 //    public List<FlightStatus> getAllFlightStatus(){
 //        return Arrays.asList(FlightStatus.values());
