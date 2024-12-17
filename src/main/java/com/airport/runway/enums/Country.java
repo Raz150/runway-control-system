@@ -7,5 +7,8 @@ public enum Country {
     THAILAND,
     USA,
     JAPAN,
-    SOUTH_KOREA;
+    SOUTH_KOREA,
+    CHINA,
+    VIETNAM,
+    BRAZIL;
 }
