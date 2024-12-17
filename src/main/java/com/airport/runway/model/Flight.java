@@ -9,6 +9,8 @@ import com.airport.runway.enums.Country;
 import com.airport.runway.enums.FlightStatus;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,9 +35,11 @@ public class Flight {
     @JoinColumn(name = "runway_id")
     private Runway runway;
 
-
+    @Enumerated(EnumType.STRING)
     private FlightStatus flightStatus;
+    @Enumerated(EnumType.STRING)
     private Country departureFrom;
+    @Enumerated(EnumType.STRING)
     private Country arrivingFrom;
     private LocalTime arrivalTime;
     private LocalTime scheduledDeparture;
@@ -145,6 +149,7 @@ public class Flight {
     }
 
     // Method ensure that arrival flight only shows what we need to show, can add and remove as needed here.
+    
     public Map<String, Object> toDTOArrival() {
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("flightId", flightId);
