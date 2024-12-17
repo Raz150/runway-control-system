@@ -56,6 +56,7 @@ public class Flight {
         this.scheduledDeparture = scheduledDeparture;
         this.scheduledArrival = scheduledArrival;
     }
+
     // For arrival
     public Flight(Plane plane, FlightStatus flightStatus, LocalTime arrivalTime, Country arrivingFrom, Integer passenger){
         this.plane = plane;
