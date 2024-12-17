@@ -5,9 +5,7 @@ import com.airport.runway.enums.FlightStatus;
 import com.airport.runway.model.Flight;
 import com.airport.runway.model.Plane;
 import com.airport.runway.repositories.PlaneRepository;
-
 import jakarta.transaction.Transactional;
-
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +22,7 @@ public class FlightService {
     private PlaneService planeService;
     @Autowired
     private PlaneRepository planeRepository; 
+
     public FlightService() {}
 
     public Country generateRandomCountry() {
@@ -39,6 +38,7 @@ public class FlightService {
         System.out.println(" Flight status: " + flightStatuses[randomIndex]);
         return flightStatuses[randomIndex];
     }
+
 
     public LocalTime getCurrentTime() {
         LocalDateTime currentTime = LocalDateTime.now();
@@ -60,6 +60,7 @@ public class FlightService {
         System.out.println("\nFlight aDDED: " + flight);
         return flight;
     }
+
 
 
 }
