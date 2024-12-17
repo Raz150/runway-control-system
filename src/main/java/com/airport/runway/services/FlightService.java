@@ -9,6 +9,7 @@ import com.airport.runway.repositories.PlaneRepository;
 import jakarta.transaction.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.Random;
@@ -39,10 +40,10 @@ public class FlightService {
         return flightStatuses[randomIndex];
     }
 
-    public String getCurrentTime() {
+    public LocalTime getCurrentTime() {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-        return currentTime.format(formatter);
+        return currentTime.toLocalTime();
     }
     public Integer generateRandomPassengerCount() {
         Random random = new Random();
@@ -55,7 +56,7 @@ public class FlightService {
         // Save the plane entity before associating it with a flight
         plane = planeRepository.save(plane); // Save the plane to the database
 
-        Flight flight = new Flight(plane, generateRandomFlightStatusForArrival(), getCurrentTime().toString(), generateRandomCountry(), generateRandomPassengerCount());
+        Flight flight = new Flight(plane, generateRandomFlightStatusForArrival(), getCurrentTime(), generateRandomCountry(), generateRandomPassengerCount());
         System.out.println("\nFlight aDDED: " + flight);
         return flight;
     }

@@ -1,5 +1,6 @@
 package com.airport.runway.model;
 
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -32,16 +33,16 @@ public class Flight {
 
     private FlightStatus flightStatus;
     private Country departureFrom;
-    private String arrivalTime;
     private Country arrivingFrom;
-    private String scheduledDeparture;
-    private String scheduledArrival;
+    private LocalTime arrivalTime;
+    private LocalTime scheduledDeparture;
+    private LocalTime scheduledArrival;
     private Integer passenger;
-    
+
 
     public Flight(){}
 
-    public Flight(Plane plane, Runway runway, FlightStatus flightStatus, Country departureFrom, String arrivalTime, String scheduledDeparture, String scheduledArrival){
+    public Flight(Plane plane, Runway runway, FlightStatus flightStatus, Country departureFrom, LocalTime arrivalTime, LocalTime scheduledDeparture, LocalTime scheduledArrival){
         this.flightStatus = flightStatus;
         this.departureFrom = departureFrom;
         this.arrivalTime = arrivalTime;
@@ -49,7 +50,7 @@ public class Flight {
         this.scheduledArrival = scheduledArrival;
     }
     // For arrival
-    public Flight(Plane plane, FlightStatus flightStatus, String arrivalTime, Country arrivingFrom, Integer passenger){
+    public Flight(Plane plane, FlightStatus flightStatus, LocalTime arrivalTime, Country arrivingFrom, Integer passenger){
         this.plane = plane;
         this.flightStatus = flightStatus;
         this.arrivalTime = arrivalTime;
@@ -97,11 +98,11 @@ public class Flight {
         this.departureFrom = departureFrom;
     }
 
-    public String getArrivalTime() {
+    public LocalTime getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(String arrivalTime) {
+    public void setArrivalTime(LocalTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -113,19 +114,19 @@ public class Flight {
         this.arrivingFrom = arrivingFrom;
     }
 
-    public String getScheduledDeparture() {
+    public LocalTime getScheduledDeparture() {
         return scheduledDeparture;
     }
 
-    public void setScheduledDeparture(String scheduledDeparture) {
+    public void setScheduledDeparture(LocalTime scheduledDeparture) {
         this.scheduledDeparture = scheduledDeparture;
     }
 
-    public String getScheduledArrival() {
+    public LocalTime getScheduledArrival() {
         return scheduledArrival;
     }
 
-    public void setScheduledArrival(String scheduledArrival) {
+    public void setScheduledArrival(LocalTime scheduledArrival) {
         this.scheduledArrival = scheduledArrival;
     }
 
