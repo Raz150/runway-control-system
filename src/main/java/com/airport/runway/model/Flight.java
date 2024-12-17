@@ -16,6 +16,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.time.LocalTime;
+
 @Entity
 @Table(name = "flights")
 public class Flight {
@@ -30,6 +32,7 @@ public class Flight {
     @ManyToOne
     @JoinColumn(name = "runway_id")
     private Runway runway;
+
 
     private FlightStatus flightStatus;
     private Country departureFrom;
@@ -66,6 +69,7 @@ public class Flight {
         this.flightId = flightId;
     }
 
+
     public Plane getPlane() {
         return plane;
     }
@@ -81,6 +85,7 @@ public class Flight {
     public void setRunway(Runway runway) {
         this.runway = runway;
     }
+
 
     public FlightStatus getFlightStatus() {
         return flightStatus;
@@ -112,6 +117,7 @@ public class Flight {
 
     public void setArrivingFrom(Country arrivingFrom) {
         this.arrivingFrom = arrivingFrom;
+
     }
 
     public LocalTime getScheduledDeparture() {
