@@ -16,7 +16,7 @@ public class RunwayController {
     @Autowired
     private RunwayServices runwayServices;
     // display Runaway
-    @GetMapping("/displayallrunaway")//http://localhost:8080/runaway/displayallrunaway
+    @GetMapping("/display-all-runaway")//http://localhost:8080/runaway/display-all-runaway
     public List<Runway> displayRunaway() {
         return runwayServices.displayAllRunways();
     }

@@ -15,7 +15,7 @@ public class FlightController {
     @Autowired
     private ArrivalService arrivalService;
 
-    @PostMapping("/generateflight")//http://localhost:8080/flight/generateflight
+    @PostMapping("/generate-flight")//http://localhost:8080/flight/generate-flight
     public Map<String, Object> generateArrival() { 
         Map<String, Object> newFlight = arrivalService.addFlightOnArrival();
         System.out.println("Flight incoming - " + newFlight);
@@ -23,7 +23,7 @@ public class FlightController {
     }
 
     // Display all flights
-    @GetMapping("/displayincomingflights")//http://localhost:8080/flight/displayincomingflights
+    @GetMapping("/display-incoming-flights")//http://localhost:8080/flight/display-incoming-flights
     public Iterable<Map<String, Object>> displayIncomingFlight() {
         Iterable<Map<String, Object>> flights = arrivalService.getFlightsOnArrival();
         return flights;

@@ -27,7 +27,8 @@ public class ArrivalService {
         return flightDTO;
     }
     public Iterable<Map<String, Object>> getFlightsOnArrival() {
-        Iterable<Flight> flights = flightArrivalRepository.findAll();
+        //Iterable<Flight> flights = flightArrivalRepository.findAll();
+        List<Flight> flights = flightArrivalRepository.findAll();
         List<Map<String, Object>> flightDTOs = new ArrayList<>();
         for (Flight flight : flights) {
             //ensure we dont get runaway flights into our arrival db
