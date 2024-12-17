@@ -12,8 +12,8 @@ import java.util.List;
 @Service
 public class FlightStatusService {
     private Flight flight;
-    private FlightRepository flightRepository;
-    private List<FlightStatus> flightStatuses = Arrays.asList(FlightStatus.values());
+    private final FlightRepository flightRepository;
+    private final List<FlightStatus> flightStatuses = Arrays.asList(FlightStatus.values());
 
     @Autowired
     public FlightStatusService(Flight flight, FlightRepository flightRepository){
@@ -25,7 +25,7 @@ public class FlightStatusService {
 //        return Arrays.asList(FlightStatus.values());
 //    }
 
-    // Method to change flight status sequently
+    // Method to change flight status sequentially
     public void changeStatus(Flight flight){
         // Get current flightStatus
         FlightStatus currentFlightStatus = FlightStatus.valueOf(flight.getFlightStatus());
