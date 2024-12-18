@@ -32,16 +32,6 @@ public class FlightStatusService {
 
         flight.setFlightStatus(nextStatus);
         return flightRepository.save(flight);
-
-//        int currentStatusIndex = flightStatuses.indexOf(currentStatus);
-
-        // Update the status if there's still next status
-//        if (currentStatusIndex < flightStatuses.size() - 1) {
-//            FlightStatus nextStatus = flightStatuses.get(currentStatusIndex + 1);
-//            flight.setFlightStatus(nextStatus);
-//            return flightRepository.save(flight);
-//        }
-//        return flight;
     }
 
     private FlightStatus getNextStatus(FlightStatus currentStatus){
@@ -63,5 +53,36 @@ public class FlightStatusService {
             default:
                 throw new IllegalStateException("Invalid flight status transition");
         }
+    }
+
+    public List<Flight> getFlightByTable(String category){
+        List<FlightStatus> statuses;
+
+        switch (category){
+            case "first":
+                statuses = List.of(
+                        FlightStatus.FLYING,
+                        FlightStatus.REQUEST_LANDING
+                );
+                break;
+            case "second":
+                statuses = List.of(
+                        FlightStatus.LANDING,
+                        FlightStatus.LANDED,
+                        FlightStatus.PARKED,
+                        FlightStatus.DISEMBARK,
+                        FlightStatus.REQUEST_TAKE_OFF
+                );
+                break;
+            case "third":
+                statuses = List.of(
+                        FlightStatus.TAKE_OFF
+                );
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid table category!");
+        }
+
+        return flightRepository.findByFlightStatusIn(statuses);
     }
 }

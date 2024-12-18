@@ -45,4 +45,10 @@ public class FlightController {
         Flight updatedFlight = flightStatusService.updateStatus(flightId);
         return ResponseEntity.ok(updatedFlight);
     }
+
+    // Get table by category which based on the flight status
+    @GetMapping("/table/{category}")
+    public List<Flight> getFlightsByTable(@PathVariable String category){
+        return flightStatusService.getFlightByTable(category);
+    }
 }
