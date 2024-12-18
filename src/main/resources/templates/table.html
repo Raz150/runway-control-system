@@ -21,7 +21,6 @@
                 </div>
                 <div class="p-2 d-flex align-items-center">
                     <button type="button" class="btn btn-primary" onclick="generateNewArrival()">Generate Arrival</button>
-                    <button type="button" class="btn btn-success mx-2">Approve Landing</button>
                 </div>
                 <div class="p-2">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne"></button>
@@ -43,6 +42,7 @@
                                 <th>Scheduled Arrival</th>
                                 <th>Passenger</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -53,6 +53,9 @@
                                 <td th:text="${flight.arrivalTime}"></td>
                                 <td th:text="${flight.passenger}"></td>
                                 <td th:text="${flight.flightStatus}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-success mx-2" th:onclick="approveLanding([[${flight.flightId}]])">Approve Landing</button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -144,6 +147,16 @@
 
     function generateNewArrival() {
         axios.post('/flight/generate-flight')
+        .then(function (response) {
+            location.reload();
+        })
+        .catch(function (error) {
+            console.log('Error generating flight:', error);
+        });
+    }
+
+    function approveLanding(flightId) {
+        axios.put('/flight/status/' + flightId)
         .then(function (response) {
             location.reload();
         })
