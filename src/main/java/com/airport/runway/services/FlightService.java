@@ -4,6 +4,7 @@ import com.airport.runway.enums.Country;
 import com.airport.runway.enums.FlightStatus;
 import com.airport.runway.model.Flight;
 import com.airport.runway.model.Plane;
+import com.airport.runway.repositories.FlightArrivalRepository;
 import com.airport.runway.repositories.PlaneRepository;
 
 import jakarta.transaction.Transactional;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,4 @@ public class FlightService {
         System.out.println("\nFlight aDDED: " + flight);
         return flight;
     }
-
-
 }

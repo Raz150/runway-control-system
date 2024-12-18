@@ -26,11 +26,13 @@ public class ArrivalService {
         System.out.println("Flight saved with ID: " + newFlight.getFlightId());
         return flightDTO;
     }
+
     public Iterable<Map<String, Object>> getFlightsOnArrival() {
-        Iterable<Flight> flights = flightArrivalRepository.findAll();
+        List<Flight> flights = flightArrivalRepository.findAll();  // Call it on the repository instance
         List<Map<String, Object>> flightDTOs = new ArrayList<>();
+
         for (Flight flight : flights) {
-            flightDTOs.add(flight.toDTOArrival());
+            flightDTOs.add(flight.toDTOArrival());  // Assuming `toDTOArrival()` is a method in `Flight` class
         }
         return flightDTOs;
     }

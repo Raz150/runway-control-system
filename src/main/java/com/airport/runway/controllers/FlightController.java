@@ -25,7 +25,7 @@ public class FlightController {
         this.flightStatusService = flightStatusService;
     }
 
-    @PostMapping("/generateflight")
+    @PostMapping("/generate-flight")
     public Map<String, Object> postGenerateFlight2() { 
         Map<String, Object> newFlight = arrivalService.addFlightOnArrival();
         System.out.println("Flight incoming - " + newFlight);
@@ -33,7 +33,7 @@ public class FlightController {
     }
 
     // Display all flights
-    @GetMapping("/displayincomingflights")
+    @GetMapping("/display-incoming-flights")
     public Iterable<Map<String, Object>> getAllFlights() {
         Iterable<Map<String, Object>> flights = arrivalService.getFlightsOnArrival();
         return flights;
