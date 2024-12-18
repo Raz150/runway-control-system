@@ -17,9 +17,7 @@ public class Runway {
     @JsonManagedReference
     private List<Flight> flights = new ArrayList<>();
 
-
     private boolean isAvailable;
-   // private Flight primaryFlight;
 
     public Runway(){}
 

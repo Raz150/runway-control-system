@@ -9,15 +9,7 @@ import com.airport.runway.services.RunwayServices;
 
 @SpringBootApplication
 public class RunwayControlSystemApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(RunwayControlSystemApplication.class, args);
 	}
-		@Bean
-	public CommandLineRunner initializeRunways(RunwayServices runwayServices) {
-		return args -> {
-			runwayServices.runawayCreation();
-		};
-	}
-
 }
