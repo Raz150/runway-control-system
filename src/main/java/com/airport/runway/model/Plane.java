@@ -16,7 +16,9 @@ public class Plane {
     @OneToMany(mappedBy = "plane") // So we can fetch all flights records for a specific plane
     private List<Flight> flights;
 
+    @Enumerated(EnumType.STRING)
     private PlaneType type;
+    @Enumerated(EnumType.STRING)
     private PlaneModel model;
     private double fuelBalance;
 
