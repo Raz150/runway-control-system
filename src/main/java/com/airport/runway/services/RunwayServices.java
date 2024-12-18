@@ -2,6 +2,7 @@ package com.airport.runway.services;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,7 @@ public class RunwayServices {
     
         for (int i = 0; i < unavailableRunways; i++) {
             Runway runway = new Runway(false);
+            // toDTOArrival();
             Flight newFlight = flightService.generateFlightServiceDataForRunaway();
             newFlight.setRunway(runway);
             runway.addFlight(newFlight);

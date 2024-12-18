@@ -69,7 +69,7 @@ public class FlightService {
         plane = planeRepository.save(plane); // Save the plane to the database
         FlightStatus itinialFlightStatusAtRunaway = FlightStatus.PARKED; 
 
-        Flight flight = new Flight(plane, itinialFlightStatusAtRunaway, getCurrentTime(), generateRandomCountry(), generateRandomPassengerCount());
+        Flight flight = new Flight(plane, itinialFlightStatusAtRunaway,  getCurrentTime(), generateRandomCountry(), generateRandomPassengerCount());
         System.out.println("\nFlight aDDED: " + flight);
         return flight;
     }
