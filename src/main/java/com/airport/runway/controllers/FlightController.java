@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.airport.runway.exceptions.RunwayExceptions;
 import com.airport.runway.services.FlightStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,10 +42,14 @@ public class FlightController {
 
     // Update flightStatus
     @PutMapping("/status/{flightId}")
-    public ResponseEntity<Flight> updateStatus(
+    public ResponseEntity<String> updateStatus(
             @PathVariable Long flightId){
-        Flight updatedFlight = flightStatusService.updateStatus(flightId);
-        return ResponseEntity.ok(updatedFlight);
+        try {
+            flightStatusService.updateStatus(flightId);
+            return ResponseEntity.ok("Flight status updated");
+        } catch (RunwayExceptions.RunwayAlreadyOccupiedException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     // Get table by category which based on the flight status
