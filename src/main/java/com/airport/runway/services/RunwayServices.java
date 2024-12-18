@@ -48,7 +48,7 @@ public class RunwayServices {
     
         for (int i = 0; i < unavailableRunways; i++) {
             Runway runway = new Runway(false);
-            Flight newFlight = flightService.generateFlightServiceData();
+            Flight newFlight = flightService.generateFlightServiceDataForRunaway();
             newFlight.setRunway(runway);
             runway.addFlight(newFlight);
             System.out.println("Flight Generated: " + newFlight.toDTORunway());

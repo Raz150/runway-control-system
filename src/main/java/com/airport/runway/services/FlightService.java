@@ -62,4 +62,15 @@ public class FlightService {
         System.out.println("\nFlight aDDED: " + flight);
         return flight;
     }
+    @Transactional
+    public Flight generateFlightServiceDataForRunaway() {
+        Plane plane = planeService.generatePlaneServiceData();
+        // Save the plane entity before associating it with a flight
+        plane = planeRepository.save(plane); // Save the plane to the database
+        FlightStatus itinialFlightStatusAtRunaway = FlightStatus.PARKED; 
+
+        Flight flight = new Flight(plane, itinialFlightStatusAtRunaway, getCurrentTime(), generateRandomCountry(), generateRandomPassengerCount());
+        System.out.println("\nFlight aDDED: " + flight);
+        return flight;
+    }
 }
