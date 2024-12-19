@@ -25,6 +25,7 @@ import jakarta.persistence.Table;
 @Table(name = "flights")
 public class Flight {
     @Id
+    private boolean isTakenOff;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long flightId;
 
@@ -75,6 +76,7 @@ public class Flight {
         this.scheduledDeparture = scheduledDeparture;
         this.departureTo = departureTo;
         this.passenger = passenger;
+        this.isTakenOff = false;
     }
 
     // Getters and Setters
@@ -161,6 +163,13 @@ public class Flight {
         this.passenger = passenger;
     }
 
+    public boolean isTakenOff() {
+        return isTakenOff;
+    }
+
+    public void setTakenOff(boolean takenOff) {
+        isTakenOff = takenOff;
+    }
     
 
     // Method ensure that arrival flight only shows what we need to show, can add and remove as needed here.
