@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Runway {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long runwayId;
@@ -19,9 +20,9 @@ public class Runway {
 
     private boolean isAvailable;
 
-    public Runway(){}
+    public Runway() {}
 
-    public Runway(boolean isAvailable){
+    public Runway(boolean isAvailable) {
         this.isAvailable = isAvailable;
         this.flights = new ArrayList<>();
     }
