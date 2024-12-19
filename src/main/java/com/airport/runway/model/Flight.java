@@ -2,10 +2,25 @@ package com.airport.runway.model;
 
 import jakarta.persistence.*;
 import java.time.LocalTime;
-import com.airport.runway.enums.Country;
-import com.airport.runway.enums.FlightStatus;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import com.airport.runway.enums.Country;
+import com.airport.runway.enums.FlightStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "flights")
@@ -15,28 +30,50 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long flightId;
 
-    @ManyToOne
-    @JoinColumn(name = "runway_id")  // Ensuring proper mapping for the runway relationship
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "runway_id")
     private Runway runway;
 
+    @Enumerated(EnumType.STRING)
     private FlightStatus flightStatus;
-    private Country departureFrom;
+    @Enumerated(EnumType.STRING)
+    private Country departureTo;
+    @Enumerated(EnumType.STRING)
     private Country arrivingFrom;
     private LocalTime arrivalTime;
     private LocalTime scheduledDeparture;
     private LocalTime scheduledArrival;
     private Integer passenger;
 
-    // Constructor for flight arrival
-    public Flight(Plane plane, FlightStatus flightStatus, LocalTime arrivalTime, Country arrivingFrom, Integer passenger) {
+
+    public Flight(){}
+
+    public Flight(Plane plane, Runway runway, FlightStatus flightStatus, Country departureTo, LocalTime arrivalTime, LocalTime scheduledDeparture, LocalTime scheduledArrival){
+        this.flightStatus = flightStatus;
+        this.departureTo = departureTo;
+        this.arrivalTime = arrivalTime;
+        this.scheduledDeparture = scheduledDeparture;
+        this.scheduledArrival = scheduledArrival;
+    }
+
+    // For arrival
+    public Flight(Plane plane, FlightStatus flightStatus, LocalTime arrivalTime, Country arrivingFrom, Integer passenger){
+        this.plane = plane;
         this.flightStatus = flightStatus;
         this.arrivalTime = arrivalTime;
         this.arrivingFrom = arrivingFrom;
         this.passenger = passenger;
     }
 
-    // Default Constructor
-    public Flight() {}
+    // For Departure/Runaway
+    public Flight(Plane plane, Runway runway,  FlightStatus flightStatus, LocalTime scheduledDeparture, Country departureTo, Integer passenger){
+        this.plane = plane;
+        this.flightStatus = flightStatus;
+        this.scheduledDeparture = scheduledDeparture;
+        this.departureTo = departureTo;
+        this.passenger = passenger;
+    }
 
     // Getters and Setters
     public Long getFlightId() {
@@ -63,12 +100,12 @@ public class Flight {
         this.flightStatus = flightStatus;
     }
 
-    public Country getDepartureFrom() {
-        return departureFrom;
+    public Country getdepartureTo() {
+        return departureTo;
     }
 
-    public void setDepartureFrom(Country departureFrom) {
-        this.departureFrom = departureFrom;
+    public void setDepartureTo(Country departureTo) {
+        this.departureTo = departureTo;
     }
 
     public Country getArrivingFrom() {
@@ -111,15 +148,33 @@ public class Flight {
         this.passenger = passenger;
     }
 
-    // Method to convert Flight to DTO format for Arrival
+    
+
+    // Method ensure that arrival flight only shows what we need to show, can add and remove as needed here.
+    
     public Map<String, Object> toDTOArrival() {
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("flightId", flightId);
-        dto.put("runway", runway);
+        dto.put("plane", plane);
+       // dto.put("runway", runway);
         dto.put("flightStatus", flightStatus);
         dto.put("arrivalTime", arrivalTime);
         dto.put("arrivingFrom", arrivingFrom);
         dto.put("passenger", passenger);
         return dto;
     }
+
+    public Map<String, Object> toDTORunway() {
+        Map<String, Object> dto = new LinkedHashMap<>();
+        dto.put("runway", runway);
+        dto.put("flightId", flightId);
+        dto.put("plane", plane);
+        dto.put("flightStatus", flightStatus);
+        dto.put("departureTo", departureTo);
+        dto.put("scheduledDeparture", scheduledDeparture); 
+        dto.put("passenger", passenger);
+        return dto;
+    }
+
+
 }

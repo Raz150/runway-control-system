@@ -32,10 +32,15 @@ public class ArrivalService {
     }
 
     public Iterable<Map<String, Object>> getFlightsOnArrival() {
-        Iterable<Flight> flights = flightDepartureRepository.findAll();  // Use the correct repository
+        //Iterable<Flight> flights = flightArrivalRepository.findAll();
+        List<Flight> flights = flightArrivalRepository.findAll();
         List<Map<String, Object>> flightDTOs = new ArrayList<>();
+
         for (Flight flight : flights) {
-            flightDTOs.add(flight.toDTOArrival());  // Convert to DTO format
+            //ensure we dont get runaway flights into our arrival db
+            if (flight.getRunway() == null) {
+                flightDTOs.add(flight.toDTOArrival());
+            }
         }
         return flightDTOs;
     }
