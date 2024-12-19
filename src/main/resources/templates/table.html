@@ -28,11 +28,11 @@
             </div>
             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                 <div class="accordion-body">
-                    <div th:if="${#lists.isEmpty(flights)}" class="text-center">
+                    <div th:if="${#lists.isEmpty(arrivals)}" class="text-center">
                         <p class="fst-italic">No flights available at the moment.</p>
                     </div>
 
-                    <div th:unless="${#lists.isEmpty(flights)}">
+                    <div th:unless="${#lists.isEmpty(arrivals)}">
                         <table id="arrivalsTable" class="table table-bordered table-hover">
                             <thead>
                             <tr>
@@ -41,20 +41,25 @@
                                 <th>Arriving From</th>
                                 <th>Scheduled Arrival</th>
                                 <th>Passenger</th>
+                                <th>Fuel</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="flight : ${flights}">
-                                <td th:text="${flight.flightId}"></td>
-                                <td th:text="${flight.plane.type}"></td>
-                                <td th:text="${flight.arrivingFrom.name}"></td>
-                                <td th:text="${flight.arrivalTime}"></td>
-                                <td th:text="${flight.passenger}"></td>
-                                <td th:text="${flight.flightStatus}"></td>
+                            <tr th:each="arrival : ${arrivals}">
+                                <td th:text="${arrival.flightId}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-success mx-2" th:onclick="approveLanding([[${flight.flightId}]])">Approve Landing</button>
+                                    <span th:text="${arrival.plane.type}"></span> -
+                                    <span th:text="${arrival.plane.model}"></span>
+                                </td>
+                                <td th:text="${arrival.arrivingFrom.name}"></td>
+                                <td th:text="${arrival.arrivalTime}"></td>
+                                <td th:text="${arrival.passenger}"></td>
+                                <td th:text="${arrival.plane.fuelBalance}"></td>
+                                <td th:text="${arrival.flightStatus}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-success mx-2" th:onclick="approveLanding([[${arrival.flightId}]])">Approve Landing</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -76,45 +81,42 @@
             </div>
             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
                 <div class="accordion-body">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Plane</th>
-                            <th>Depart To</th>
-                            <th>Scheduled Departure</th>
-                            <th>Passenger</th>
-                            <th>Feul</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Boeing 737</td>
-                                <td>New York</td>
-                                <td>2024-12-15 15:30</td>
-                                <td>150</td>
-                                <td>5000 Liters</td>
-                                <td>Ready to Take-off</td>
+                    <div th:if="${#lists.isEmpty(runaways)}" class="text-center">
+                        <p class="fst-italic">No runaways available at the moment.</p>
+                    </div>
+
+                    <div th:unless="${#lists.isEmpty(arrivals)}">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Plane</th>
+                                    <th>Depart To</th>
+                                    <th>Scheduled Departure</th>
+                                    <th>Passenger</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="runaway : ${runaways}">
+                                <td th:text="${runaway.flightId}"></td>
+                                <td>
+                                    <span th:text="${runaway.plane.type}"></span> -
+                                    <span th:text="${runaway.plane.model}"></span>
+                                </td>
+                                <td>Error for departure to</td>
+                                <td th:text="${runaway.scheduledDeparture}"></td>
+                                <td th:text="${runaway.passenger}"></td>
+                                <td th:text="${runaway.flightStatus}"></td>
                                 <td>
                                     <button type="button" class="btn btn-primary">Next Action</button>
                                 </td>
                             </tr>
-                                <td>2</td>
-                                <td>Airbus A320</td>
-                                <td>Los Angeles</td>
-                                <td>2024-12-16 09:00</td>
-                                <td>180</td>
-                                <td>4000 Liters</td>
-                                <td>Landing</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary">Next Action</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -162,6 +164,7 @@
         })
         .catch(function (error) {
             console.log('Error generating flight:', error);
+            showErrorToast(error.response.data);
         });
     }
 
