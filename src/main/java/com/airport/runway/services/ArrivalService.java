@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.airport.runway.model.Flight;
-import com.airport.runway.repositories.FlightDepartureRepository;  // Correct repository import
+import com.airport.runway.repositories.FlightArrivalRepository;
 
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
@@ -13,20 +13,16 @@ import java.util.Map;
 
 @Service
 public class ArrivalService {
+    public ArrivalService() {}
 
-    @Autowired
-    FlightDepartureRepository flightDepartureRepository;  // Use FlightDepartureRepository instead of FlightArrivalRepository
-
-    @Autowired
-    FlightService flightService;  // Make sure this service generates Flight objects correctly
+    @Autowired FlightArrivalRepository flightArrivalRepository;
+    @Autowired FlightService flightService;
 
     @Transactional
     public Map<String, Object> addFlightOnArrival() {
         System.out.println("addFlightOnArrival method called");
-        // Assuming generateFlightServiceData() creates and returns a valid Flight object
         Flight newFlight = flightService.generateFlightServiceData();
-        // Save the new flight and convert it to DTO
-        Map<String, Object> flightDTO = flightDepartureRepository.save(newFlight).toDTOArrival();
+        Map<String, Object> flightDTO = flightArrivalRepository.save(newFlight).toDTOArrival();
         System.out.println("Flight saved with ID: " + newFlight.getFlightId());
         return flightDTO;
     }
@@ -44,4 +40,5 @@ public class ArrivalService {
         }
         return flightDTOs;
     }
+
 }

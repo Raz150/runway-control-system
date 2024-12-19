@@ -1,6 +1,5 @@
 package com.airport.runway.model;
 
-import jakarta.persistence.*;
 import java.time.LocalTime;
 
 import java.util.LinkedHashMap;
@@ -25,10 +24,13 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "flights")
 public class Flight {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long flightId;
+
+    @ManyToOne // One plane can have multiple flight or vice-verse
+    @JoinColumn(name = "plane_id")
+    private Plane plane;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
@@ -84,6 +86,15 @@ public class Flight {
         this.flightId = flightId;
     }
 
+
+    public Plane getPlane() {
+        return plane;
+    }
+
+    public void setPlane(Plane plane) {
+        this.plane = plane;
+    }
+
     public Runway getRunway() {
         return runway;
     }
@@ -91,6 +102,7 @@ public class Flight {
     public void setRunway(Runway runway) {
         this.runway = runway;
     }
+
 
     public FlightStatus getFlightStatus() {
         return flightStatus;
@@ -108,20 +120,21 @@ public class Flight {
         this.departureTo = departureTo;
     }
 
-    public Country getArrivingFrom() {
-        return arrivingFrom;
-    }
-
-    public void setArrivingFrom(Country arrivingFrom) {
-        this.arrivingFrom = arrivingFrom;
-    }
-
     public LocalTime getArrivalTime() {
         return arrivalTime;
     }
 
     public void setArrivalTime(LocalTime arrivalTime) {
         this.arrivalTime = arrivalTime;
+    }
+
+    public Country getArrivingFrom() {
+        return arrivingFrom;
+    }
+
+    public void setArrivingFrom(Country arrivingFrom) {
+        this.arrivingFrom = arrivingFrom;
+
     }
 
     public LocalTime getScheduledDeparture() {
