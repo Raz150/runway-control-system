@@ -96,7 +96,7 @@
                     <th>Origin/Destination</th>
                     <th>Passengers</th>
                     <th>Time</th>
-                    <th>Runway</th>
+                    <!-- <th>Runway</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -107,7 +107,7 @@
                     <td th:text="${flight.arrivingFrom != null ? flight.arrivingFrom : flight.departureTo}">Vietnam</td>
                     <td th:text="${flight.passenger}">73</td>
                     <td th:text="${flight.arrivalTime != null ? flight.arrivalTime : flight.scheduledDeparture}">08:32 AM</td>
-                    <td th:text="${flight.runway?.runwayId}">Runway 3</td>
+                    <!-- <td th:text="${flight.runway?.runwayId}">Runway 3</td> -->
                   </tr>
                 </tbody>
               </table>

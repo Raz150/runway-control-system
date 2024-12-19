@@ -17,6 +17,9 @@ public class RunwayServices {
         this.runwayRepository = runwayRepository;
         this.runwaySeeder = runwaySeeder;
     }
+    public Runway saveRunway(Runway runway) {
+        return runwayRepository.save(runway);
+    }
 
     // Search the first available runways
     public Runway assignAvailableRunway(){

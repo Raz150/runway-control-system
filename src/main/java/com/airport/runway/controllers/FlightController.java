@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.airport.runway.enums.FlightStatus;
 import com.airport.runway.exceptions.RunwayExceptions;
 import com.airport.runway.services.FlightStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.airport.runway.model.Flight;
+import com.airport.runway.model.Runway;
 import com.airport.runway.services.ArrivalService;
 
-import java.util.List;
-import java.util.Map;
+import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import com.airport.runway.repositories.FlightRepository;
+import com.airport.runway.repositories.RunwayRepository;
+import com.airport.runway.services.FlightService;
 
 @RestController
 @RequestMapping("/flight")
@@ -28,6 +28,13 @@ public class FlightController {
     @Autowired
     private ArrivalService arrivalService;
     private final FlightStatusService flightStatusService;
+
+    @Autowired
+    private FlightRepository flightRepository;
+    @Autowired
+    private FlightService flightService;
+    @Autowired
+    private RunwayRepository runwayRepository;
 
     public FlightController(FlightStatusService flightStatusService){
         this.flightStatusService = flightStatusService;
@@ -85,4 +92,24 @@ public class FlightController {
 
         return ResponseEntity.ok(continuedFlights);
     }
+    @PostMapping("/update-flight-status")
+        public ResponseEntity<String> updateFlightStatus(@RequestBody Flight flight) {
+        Flight existingFlight = flightRepository.findById(flight.getFlightId())
+            .orElseThrow(() -> new RuntimeException("Flight not found"));
+    
+      // Get the current runway before changing the flight status
+        Runway currentRunway = existingFlight.getRunway();
+    
+        existingFlight.setFlightStatus(flight.getFlightStatus());
+    
+    // If the flight status is TAKE_OFF, update runway availability
+        if (flight.getFlightStatus() == FlightStatus.TAKE_OFF && currentRunway != null) {
+            currentRunway.setAvailable(true);
+            runwayRepository.save(currentRunway);
+        }
+       
+    
+        flightRepository.save(existingFlight);
+        return ResponseEntity.ok("Flight status updated successfully");
+}
 }

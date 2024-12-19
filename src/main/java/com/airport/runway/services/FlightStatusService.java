@@ -7,6 +7,9 @@ import com.airport.runway.model.Flight;
 import com.airport.runway.model.Plane;
 import com.airport.runway.model.Runway;
 import com.airport.runway.repositories.FlightRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,18 +33,43 @@ public class FlightStatusService {
     }
 
     // Method to change flight status sequentially
+    @Transactional
     public Flight updateStatus(Long flightId) {
         Flight flight = flightRepository.findById(flightId)
                 .orElseThrow(() -> new FlightExceptions.FlightNotFoundException("Flight not found"));
 
-        // Get current status
-        FlightStatus currentStatus = flight.getFlightStatus();
+    // Get current status
+    FlightStatus currentStatus = flight.getFlightStatus();
 
-        // Assigning to the next status
-        FlightStatus nextStatus = getNextStatus(currentStatus, flight);
-        flight.setFlightStatus(nextStatus);
-        return flightRepository.save(flight);
+    // Assigning to the next status
+    FlightStatus nextStatus = getNextStatus(currentStatus, flight);
+    flight.setFlightStatus(nextStatus);
+
+    // Clear runway when status becomes REQUEST_TAKE_OFF
+    if (nextStatus == FlightStatus.REQUEST_TAKE_OFF) {
+        Runway currentRunway = flight.getRunway();
+        if (currentRunway != null) {
+            currentRunway.setAvailable(true);
+            // You'll need to inject RunwayRepository or use RunwayServices to save
+            runwayServices.saveRunway(currentRunway);
+        }
     }
+
+    return flightRepository.save(flight);
+}
+    // public Flight updateStatus(Long flightId) {
+    //     Flight flight = flightRepository.findById(flightId)
+    //             .orElseThrow(() -> new FlightExceptions.FlightNotFoundException("Flight not found"));
+
+    //     // Get current status
+    //     FlightStatus currentStatus = flight.getFlightStatus();
+
+    //     // Assigning to the next status
+    //     FlightStatus nextStatus = getNextStatus(currentStatus, flight);
+    //     flight.setFlightStatus(nextStatus);
+        
+    //     return flightRepository.save(flight);
+    // }
 
     private FlightStatus getNextStatus(FlightStatus currentStatus, Flight flight){
         switch (currentStatus){

@@ -4,8 +4,11 @@ import com.airport.runway.enums.Country;
 import com.airport.runway.enums.FlightStatus;
 import com.airport.runway.model.Flight;
 import com.airport.runway.model.Plane;
+import com.airport.runway.model.Runway;
 import com.airport.runway.repositories.FlightArrivalRepository;
 import com.airport.runway.repositories.PlaneRepository;
+import com.airport.runway.repositories.RunwayRepository;
+
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -24,6 +27,8 @@ public class FlightService {
     private PlaneService planeService;
     @Autowired
     private PlaneRepository planeRepository; 
+    @Autowired
+    private RunwayRepository runwayRepository;
 
     public FlightService() {}
 
@@ -61,5 +66,13 @@ public class FlightService {
         Flight flight = new Flight(plane, generateRandomFlightStatusForArrival(), getCurrentTime(), generateRandomCountry(), generateRandomPassengerCount());
         System.out.println("\nFlight aDDED: " + flight);
         return flight;
+    }
+    @Transactional
+    public void updateRunwayAvailabilityAfterTakeoff(Flight flight) {
+        if (flight.getRunway() != null && flight.getFlightStatus() == FlightStatus.TAKE_OFF) {
+            Runway runway = flight.getRunway();
+            runway.setAvailable(true);
+            runwayRepository.save(runway);
+        }
     }
 }
