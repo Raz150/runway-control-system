@@ -57,4 +57,25 @@ public class FlightController {
     public List<Flight> getFlightsByTable(@PathVariable String category){
         return flightStatusService.getFlightByTable(category);
     }
+
+    // Get second category flight table (since some need different data)
+    @GetMapping("/table/category/second/{flightId}")
+    public ResponseEntity<Flight> continueExistingFlightData(@PathVariable Long flightId){
+        Flight continuedFlightData = flightStatusService.continueExistingFlightData(flightId);
+        return ResponseEntity.ok(continuedFlightData);
+    }
+
+    // Get all secondCategoryData
+    @GetMapping("/table/category/second")
+    public ResponseEntity<List<Flight>> getAllFlightInSecondTable(){
+        List<Flight> secondTableFlights = flightStatusService.getFlightByTable("second");
+
+        List<Flight> continuedFlights = new ArrayList<>();
+        for (Flight flight:secondTableFlights){
+            Flight newFlight = flightStatusService.continueExistingFlightData(flight.getFlightId());
+            continuedFlights.add(newFlight);
+        }
+
+        return ResponseEntity.ok(continuedFlights);
+    }
 }

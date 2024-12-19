@@ -13,7 +13,7 @@ public class Runway {
     @OneToMany(mappedBy = "runway")
     private List<Flight> flights;
 
-    private boolean isAvailable = true; // Default to true
+    private boolean isAvailable;
 
     public Runway(){}
 

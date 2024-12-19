@@ -65,6 +65,7 @@ public class Flight {
         this.arrivingFrom = arrivingFrom;
         this.passenger = passenger;
     }
+
     // Getters and Setters
     public Long getFlightId() {
         return flightId;
