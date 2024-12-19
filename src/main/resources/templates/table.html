@@ -41,7 +41,6 @@
                                 <th>Arriving From</th>
                                 <th>Scheduled Arrival</th>
                                 <th>Passenger</th>
-                                <th>Fuel</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -56,10 +55,12 @@
                                 <td th:text="${arrival.arrivingFrom.name}"></td>
                                 <td th:text="${arrival.arrivalTime}"></td>
                                 <td th:text="${arrival.passenger}"></td>
-                                <td th:text="${arrival.plane.fuelBalance}"></td>
                                 <td th:text="${arrival.flightStatus}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-success mx-2" th:onclick="approveLanding([[${arrival.flightId}]])">Approve Landing</button>
+                                    <button type="button"
+                                            class="btn btn-success mx-2"
+                                            th:onclick="approveLanding([[${arrival.flightId}]])"
+                                    >Next Action</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -85,7 +86,7 @@
                         <p class="fst-italic">No runaways available at the moment.</p>
                     </div>
 
-                    <div th:unless="${#lists.isEmpty(arrivals)}">
+                    <div th:unless="${#lists.isEmpty(runaways)}">
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -110,7 +111,10 @@
                                 <td th:text="${runaway.passenger}"></td>
                                 <td th:text="${runaway.flightStatus}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary">Next Action</button>
+                                    <button type="button"
+                                            class="btn btn-primary"
+                                            th:onclick="approveLanding([[${runaway.flightId}]])"
+                                    >Next Action</button>
                                 </td>
                             </tr>
                             </tbody>
