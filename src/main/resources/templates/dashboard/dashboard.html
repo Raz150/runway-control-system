@@ -26,9 +26,11 @@
     <div class="status-box">
       <h2>Runway Availability</h2>
       <p><strong>Total Runways:</strong> <span th:text="${availableRunways.size()}">10</span></p>
-      <p><strong>Free Runways:</strong> <span th:text="${#numbers.formatDecimal(freeRunways, 0, '##')}">3</span></p>
-      <p><strong>Occupied Runways:</strong> <span th:text="${#numbers.formatDecimal(occupiedRunways, 0, '##')}">7</span></p>
-      <p><strong>Next Free Runway:</strong> <span th:text="${nextFreeRunway.runwayId}">Runway 4</span></p>
+      <!-- <p><strong>Free Runways:</strong> <span th:text="${#numbers.formatDecimal(freeRunways, 0, '##')}">3</span></p>
+      <p><strong>Occupied Runways:</strong> <span th:text="${#numbers.formatDecimal(occupiedRunways, 0, '##')}">7</span></p> -->
+      <p><strong>Free Runways:</strong> <span th:text="${#numbers.formatDecimal(freeRunways, 0, 0)}">3</span></p>
+      <p><strong>Occupied Runways:</strong> <span th:text="${#numbers.formatDecimal(occupiedRunways, 0, 0)}">7</span></p>
+      <p><strong>Next Free Runway:</strong> <span th:text="${nextFreeRunway?.runwayId}">Runway 4</span></p>
     </div>
 
     <!-- Runway Map -->
@@ -58,10 +60,10 @@
         <th>Runway</th>
       </tr>
       <tr th:each="flight : ${flights}">
-        <td th:text="${flight.plane.planeId}">Plane 001</td>
+        <td th:text="${flight.plane?.planeId}">Plane 001</td>
         <td th:text="${flight.flightStatus}">Landed</td>
         <td th:text="${flight.arrivalTime}">08:32 AM</td>
-        <td th:text="${flight.runway.runwayId}">Runway 3</td>
+        <td th:text="${flight.runway?.runwayId}">Runway 3</td>
       </tr>
     </table>
   </div>
