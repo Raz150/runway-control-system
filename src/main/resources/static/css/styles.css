@@ -84,14 +84,22 @@
 .flight-history-table td {
     width: auto; /* Allow columns to adjust */
     white-space: nowrap;
-    overflow: hidden;
+    overflow: visible;
     text-overflow: ellipsis;
 }
-
+/* Flight Status Specific Styling */
+.flight-history-table td.flight-status {
+    font-size: 0.8em; /* Makes the text smaller */
+    color: #666; /* Slightly muted color */
+    font-style: normal;
+}
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .top-section {
         flex-direction: column;
+    }
+    .dashboard-container {
+        grid-template-columns: 1fr;
     }
 }
 

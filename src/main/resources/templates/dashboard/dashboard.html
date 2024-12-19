@@ -81,7 +81,7 @@
           <tr th:each="flight : ${flights}">
             <td th:text="${flight.plane?.planeId}">Plane 001</td>
             <td th:text="${flight.arrivingFrom != null ? 'Arrival' : 'Departure'}">Arrival</td>
-            <td th:text="${flight.flightStatus}">Landed</td>
+            <td th:text="${flight.flightStatus}" class="flight-status">Landed</td>
             <td th:text="${flight.arrivingFrom != null ? flight.arrivingFrom : flight.departureTo}">Vietnam</td>
             <td th:text="${flight.passenger}">73</td>
             <td th:text="${flight.arrivalTime != null ? flight.arrivalTime : flight.scheduledDeparture}">08:32 AM</td>
