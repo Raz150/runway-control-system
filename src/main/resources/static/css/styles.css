@@ -1,20 +1,138 @@
-.accordion-button:not(.collapsed) {
-    background-color: #fff;
-    box-shadow: none;
+/* Dashboard Layout */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1600px; /* Increased max-width for better visibility */
+    margin: 0 auto;
 }
 
-.accordion-button:focus {
-    box-shadow: none;
+.top-section {
+    display: flex;
+    gap: 20px;
+    width: 100%;
 }
 
-.accordion-header {
-    background: #e7f1ff;
+.top-section .status-box {
+    flex: 1;
 }
 
-button.accordion-button {
-    background: #e7f1ff;
+.status-box {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-.accordion-button:not(.collapsed) {
-    background: #e7f1ff;
+
+.status-box h2 {
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+.status-box table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Ensures equal column widths */
+}
+
+.status-box table th {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.status-box table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.status-box table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.status-box table tr:hover {
+    background-color: #e6e6e6;
+}
+
+/* Flight History Table Specific Styling */
+.flight-history-table-container {
+    max-height: 400px; /* Limit height */
+    overflow-y: auto; /* Vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.flight-history-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.flight-history-table th,
+.flight-history-table td {
+    width: auto; /* Allow columns to adjust */
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: ellipsis;
+}
+/* Flight Status Specific Styling */
+.flight-history-table td.flight-status {
+    font-size: 0.8em; /* Makes the text smaller */
+    color: #666; /* Slightly muted color */
+    font-style: normal;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .top-section {
+        flex-direction: column;
+    }
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Welcome Section Styling */
+.welcome-section {
+    text-align: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.welcome-section h1 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.welcome-section p {
+    color: #666;
+}
+
+/* Background Image */
+.image-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.1;
+    overflow: hidden;
+}
+
+.image-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

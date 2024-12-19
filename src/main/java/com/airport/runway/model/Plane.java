@@ -53,4 +53,11 @@ public class Plane {
     public void setFuelBalance(double fuelBalance) {
         this.fuelBalance = fuelBalance;
     }
+    public Long getPlaneId() {
+        return planeId;
+    }
+
+    public void setPlaneId(Long planeId) {
+        this.planeId = planeId;
+    }
 }
