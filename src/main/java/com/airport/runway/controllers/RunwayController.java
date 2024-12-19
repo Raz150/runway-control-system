@@ -12,12 +12,4 @@ import com.airport.runway.services.RunwayServices;
 
 @RestController
 @RequestMapping("/runaway")
-public class RunwayController {
-    @Autowired
-    private RunwayServices runwayServices;
-    // display Runaway
-    @GetMapping("/display-all-runaway")//http://localhost:8080/runaway/display-all-runaway
-    public List<Runway> displayRunaway() {
-        return runwayServices.displayAllRunways();
-    }
-}
+public class RunwayController { }

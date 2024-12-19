@@ -1,5 +1,9 @@
 package com.airport.runway.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.airport.runway.exceptions.RunwayExceptions;
 import com.airport.runway.services.FlightStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import com.airport.runway.model.Flight;
 import com.airport.runway.services.ArrivalService;
 
+import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.airport.runway.services.ArrivalService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,7 +34,7 @@ public class FlightController {
     }
 
     @PostMapping("/generate-flight")//http://localhost:8080/flight/generate-flight
-    public Map<String, Object> generateArrival() { 
+    public Map<String, Object> generateArrival() {
         Map<String, Object> newFlight = arrivalService.addFlightOnArrival();
         System.out.println("Flight incoming - " + newFlight);
         return newFlight;
@@ -59,5 +63,26 @@ public class FlightController {
     @GetMapping("/table/{category}")
     public List<Flight> getFlightsByTable(@PathVariable String category){
         return flightStatusService.getFlightByTable(category);
+    }
+
+    // Get second category flight table (since some need different data)
+    @GetMapping("/table/category/second/{flightId}")
+    public ResponseEntity<Flight> continueExistingFlightData(@PathVariable Long flightId){
+        Flight continuedFlightData = flightStatusService.continueExistingFlightData(flightId);
+        return ResponseEntity.ok(continuedFlightData);
+    }
+
+    // Get all secondCategoryData
+    @GetMapping("/table/category/second")
+    public ResponseEntity<List<Flight>> getAllFlightInSecondTable(){
+        List<Flight> secondTableFlights = flightStatusService.getFlightByTable("second");
+
+        List<Flight> continuedFlights = new ArrayList<>();
+        for (Flight flight:secondTableFlights){
+            Flight newFlight = flightStatusService.continueExistingFlightData(flight.getFlightId());
+            continuedFlights.add(newFlight);
+        }
+
+        return ResponseEntity.ok(continuedFlights);
     }
 }
