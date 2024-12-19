@@ -74,12 +74,21 @@ public class FlightService {
         Flight flight = getFlight(id);
         if (flight != null && !flight.isTakenOff()) {
             flight.setTakenOff(true);
-            return flightRepository.save(flight); // Save flight with updated status
+            flightRepository.save(flight); // Save flight with updated status
+            deleteFlight(id);
+            return flight;
         }
         return null; // If flight is already taken off or doesn't exist
     }
 
     public Flight addFlight(Flight flight) {
         return flightRepository.save(flight);
+    }
+
+    public void deleteFlight(Long id) {
+        Flight flight = getFlight(id);
+        if (flight != null) {
+            flightRepository.delete(flight);  // Delete the flight
+        }
     }
 }
