@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airplane Management System - Dashboard</title>
+  <!-- Include head fragment from Layout/layout.html -->
+  <th:block th:replace="Layout/layout :: head"></th:block>
+</head>
+<body>
+  <!-- Include navbar fragment from Layout/layout.html -->
+  <div class="dashboard">
+    <th:block th:replace="Layout/layout :: navbar"></th:block>
+
+    <div class="container py-4">
+
+      <!-- Welcome Section -->
+      <div class="welcome-section text-center">
+        <h1>Airplane Management System</h1>
+        <p class="mb-0">DASHBOARD</p>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12 col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h2>Runway Availability</h2>
+            </div>
+            <div class="card-body">
+              <table class="table table-striped table-hover">
+                <thead class="table-primary">
+                  <tr>
+                    <th>Metric</th>
+                    <th>Count</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Total Runways</td>
+                    <td th:text="${availableRunways.size()}">10</td>
+                  </tr>
+                  <tr>
+                    <td>Free Runways</td>
+                    <td th:text="${#numbers.formatDecimal(freeRunways, 0, 0)}">3</td>
+                  </tr>
+                  <tr>
+                    <td>Occupied Runways</td>
+                    <td th:text="${#numbers.formatDecimal(occupiedRunways, 0, 0)}">7</td>
+                  </tr>
+                  <tr>
+                    <td>Next Free Runway</td>
+                    <td th:text="${nextFreeRunway?.runwayId}">Runway 4</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div><div class="col-12 col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h2>Runway Map</h2>
+            </div>
+            <div class="card-body">
+              <table class="table table-striped table-hover">
+                <thead class="table-primary">
+                  <tr>
+                    <th>Runway ID</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="runway : ${availableRunways}">
+                    <td th:text="${runway.runwayId}">Runway 1</td>
+                    <td th:text="${runway.isAvailable ? 'Free' : 'Occupied'}">Free</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h2>Flight Log</h2>
+            </div>
+            <div class="card-body">
+              <table class="table table-striped table-hover">
+                <thead class="table-primary">
+                  <tr>
+                    <th>Plane ID</th>
+                    <th>Flight Type</th>
+                    <th>Status</th>
+                    <th>Origin/Destination</th>
+                    <th>Passengers</th>
+                    <th>Time</th>
+                    <th>Runway</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="flight : ${flights}">
+                    <td th:text="${flight.plane?.planeId}">Plane 001</td>
+                    <td th:text="${flight.arrivingFrom != null ? 'Arrival' : 'Departure'}">Arrival</td>
+                    <td th:text="${flight.flightStatus}" class="flight-status">Landed</td>
+                    <td th:text="${flight.arrivingFrom != null ? flight.arrivingFrom : flight.departureTo}">Vietnam</td>
+                    <td th:text="${flight.passenger}">73</td>
+                    <td th:text="${flight.arrivalTime != null ? flight.arrivalTime : flight.scheduledDeparture}">08:32 AM</td>
+                    <td th:text="${flight.runway?.runwayId}">Runway 3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
