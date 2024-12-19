@@ -1,16 +1,18 @@
 package com.airport.runway.model;
 
 import java.time.LocalTime;
-import java.util.HashMap;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.airport.runway.enums.Country;
 import com.airport.runway.enums.FlightStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,7 +20,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-import java.time.LocalTime;
 
 @Entity
 @Table(name = "flights")
@@ -31,14 +32,15 @@ public class Flight {
     @JoinColumn(name = "plane_id")
     private Plane plane;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name = "runway_id")
     private Runway runway;
 
     @Enumerated(EnumType.STRING)
     private FlightStatus flightStatus;
     @Enumerated(EnumType.STRING)
-    private Country departureFrom;
+    private Country departureTo;
     @Enumerated(EnumType.STRING)
     private Country arrivingFrom;
     private LocalTime arrivalTime;
@@ -49,9 +51,9 @@ public class Flight {
 
     public Flight(){}
 
-    public Flight(Plane plane, Runway runway, FlightStatus flightStatus, Country departureFrom, LocalTime arrivalTime, LocalTime scheduledDeparture, LocalTime scheduledArrival){
+    public Flight(Plane plane, Runway runway, FlightStatus flightStatus, Country departureTo, LocalTime arrivalTime, LocalTime scheduledDeparture, LocalTime scheduledArrival){
         this.flightStatus = flightStatus;
-        this.departureFrom = departureFrom;
+        this.departureTo = departureTo;
         this.arrivalTime = arrivalTime;
         this.scheduledDeparture = scheduledDeparture;
         this.scheduledArrival = scheduledArrival;
@@ -65,7 +67,15 @@ public class Flight {
         this.arrivingFrom = arrivingFrom;
         this.passenger = passenger;
     }
+        // For Departure/Runaway
+        public Flight(Plane plane, Runway runway,  FlightStatus flightStatus, LocalTime scheduledDeparture, Country departureTo, Integer passenger){
+            this.plane = plane;
+            this.flightStatus = flightStatus;
+            this.scheduledDeparture = scheduledDeparture;
+            this.departureTo = departureTo;
+            this.passenger = passenger;
 
+        }
     // Getters and Setters
     public Long getFlightId() {
         return flightId;
@@ -101,12 +111,12 @@ public class Flight {
         this.flightStatus = flightStatus;
     }
 
-    public Country getDepartureFrom() {
-        return departureFrom;
+    public Country getdepartureTo() {
+        return departureTo;
     }
 
-    public void setDepartureFrom(Country departureFrom) {
-        this.departureFrom = departureFrom;
+    public void setDepartureTo(Country departureTo) {
+        this.departureTo = departureTo;
     }
 
     public LocalTime getArrivalTime() {
@@ -150,16 +160,30 @@ public class Flight {
         this.passenger = passenger;
     }
 
+    
+
     // Method ensure that arrival flight only shows what we need to show, can add and remove as needed here.
     
     public Map<String, Object> toDTOArrival() {
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("flightId", flightId);
         dto.put("plane", plane);
-        dto.put("runway", runway);
+       // dto.put("runway", runway);
         dto.put("flightStatus", flightStatus);
         dto.put("arrivalTime", arrivalTime);
         dto.put("arrivingFrom", arrivingFrom);
+        dto.put("passenger", passenger);
+        return dto;
+    }
+
+    public Map<String, Object> toDTORunway() {
+        Map<String, Object> dto = new LinkedHashMap<>();
+        dto.put("runway", runway);
+        dto.put("flightId", flightId);
+        dto.put("plane", plane);
+        dto.put("flightStatus", flightStatus);
+        dto.put("departureTo", departureTo);
+        dto.put("scheduledDeparture", scheduledDeparture); 
         dto.put("passenger", passenger);
         return dto;
     }

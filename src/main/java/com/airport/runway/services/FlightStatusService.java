@@ -130,7 +130,7 @@ public class FlightStatusService {
         flight.setFlightId(existingFlight.getFlightId()); // Ensure flightId is the same and not creating a new one
         flight.setPlane(plane);
         flight.setFlightStatus(existingFlight.getFlightStatus());
-        flight.setDepartureFrom(flightService.generateRandomCountry()); // is actually DepartureTo
+        flight.setDepartureTo(flightService.generateRandomCountry()); // is actually DepartureTo
         flight.setScheduledDeparture(flightService.getCurrentTime());
         flight.setPassenger(passenger);
         flight.setArrivalTime(arrivalTime);
