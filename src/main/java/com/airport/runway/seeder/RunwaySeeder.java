@@ -23,7 +23,7 @@ public class RunwaySeeder implements CommandLineRunner {
         // Initialize random number of runway (max10)
 //        int numRunway = random.nextInt(10)+1;
 
-        for (int i = 1; i <= 10; i++){
+        for (int i = 1; i <= 5; i++){
             Runway runway = new Runway();
             runway.setAvailable(random.nextBoolean());
             runwayRepository.save(runway);
