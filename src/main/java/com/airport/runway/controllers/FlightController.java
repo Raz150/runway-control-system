@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import com.airport.runway.model.Flight;
 import com.airport.runway.services.ArrivalService;
+import com.airport.runway.services.FlightService;
 
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("/flight")
@@ -28,6 +26,7 @@ public class FlightController {
     @Autowired
     private ArrivalService arrivalService;
     private final FlightStatusService flightStatusService;
+    private FlightService flightService;
 
     public FlightController(FlightStatusService flightStatusService){
         this.flightStatusService = flightStatusService;
@@ -45,6 +44,16 @@ public class FlightController {
     public Iterable<Map<String, Object>> displayIncomingFlight() {
         Iterable<Map<String, Object>> flights = arrivalService.getFlightsOnArrival();
         return flights;
+    }
+
+    @GetMapping("/{id}")
+    public Flight getFlight(@PathVariable Long id) {
+        return flightService.getFlight(id);
+    }
+
+    @PutMapping("/{id}/takeoff")
+    public Flight takeOff(@PathVariable Long id) {
+        return flightService.takeOff(id);
     }
 
     // Update flightStatus
