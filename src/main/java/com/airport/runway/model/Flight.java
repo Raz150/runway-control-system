@@ -25,9 +25,9 @@ import jakarta.persistence.Table;
 @Table(name = "flights")
 public class Flight {
     @Id
-    private boolean isTakenOff;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long flightId;
+    private boolean isTakenOff;
 
     @ManyToOne // One plane can have multiple flight or vice-verse
     @JoinColumn(name = "plane_id")
