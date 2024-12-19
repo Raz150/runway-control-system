@@ -78,7 +78,7 @@
 /* Flight History Table Specific Styling */
 .flight-history-table-container {
     max-height: 400px; /* Limit height */
-    overflow-y: auto; /* Vertical scrolling */
+    overflow-y: scroll; /* Vertical scrolling */
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
@@ -92,6 +92,7 @@
     width: auto; /* Allow columns to adjust */
     white-space: nowrap;
     overflow: visible;
+    overflow-y: scroll; /* Vertical scrolling */
     text-overflow: ellipsis;
 }
 /* Flight Status Specific Styling */
