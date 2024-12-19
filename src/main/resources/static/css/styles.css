@@ -1,4 +1,11 @@
 /* Dashboard Layout */
+.dashboard {
+        background: url(/background.jpg);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+}
+
 .dashboard-container {
     display: flex;
     flex-direction: column;
@@ -105,9 +112,7 @@
 
 /* Welcome Section Styling */
 .welcome-section {
-    text-align: center;
-    padding: 20px;
-    background-color: #f0f0f0;
+    background-color: #f0f0f080;
 }
 
 .welcome-section h1 {
@@ -136,3 +141,23 @@
     height: 100%;
     object-fit: cover;
 }
+
+.accordion-button:not(.collapsed) {
+    background-color: #fff;
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-header {
+    background: #e7f1ff;
+}
+
+button.accordion-button {
+    background: #e7f1ff;
+}
+
+.accordion-button:not(.collapsed) {
+    background: #e7f1ff;
