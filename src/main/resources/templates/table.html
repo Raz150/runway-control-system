@@ -105,7 +105,7 @@
                                     <span th:text="${runaway.plane.type}"></span> -
                                     <span th:text="${runaway.plane.model}"></span>
                                 </td>
-                                <td>Error for departure to</td>
+                                <td th:text="${runaway.departureTo}"></td>
                                 <td th:text="${runaway.scheduledDeparture}"></td>
                                 <td th:text="${runaway.passenger}"></td>
                                 <td th:text="${runaway.flightStatus}"></td>

@@ -112,7 +112,7 @@ public class Flight {
         this.flightStatus = flightStatus;
     }
 
-    public Country getdepartureTo() {
+    public Country getDepartureTo() {
         return departureTo;
     }
 
