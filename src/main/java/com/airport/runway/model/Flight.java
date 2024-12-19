@@ -67,15 +67,16 @@ public class Flight {
         this.arrivingFrom = arrivingFrom;
         this.passenger = passenger;
     }
-        // For Departure/Runaway
-        public Flight(Plane plane, Runway runway,  FlightStatus flightStatus, LocalTime scheduledDeparture, Country departureTo, Integer passenger){
-            this.plane = plane;
-            this.flightStatus = flightStatus;
-            this.scheduledDeparture = scheduledDeparture;
-            this.departureTo = departureTo;
-            this.passenger = passenger;
 
-        }
+    // For Departure/Runaway
+    public Flight(Plane plane, Runway runway,  FlightStatus flightStatus, LocalTime scheduledDeparture, Country departureTo, Integer passenger){
+        this.plane = plane;
+        this.flightStatus = flightStatus;
+        this.scheduledDeparture = scheduledDeparture;
+        this.departureTo = departureTo;
+        this.passenger = passenger;
+    }
+
     // Getters and Setters
     public Long getFlightId() {
         return flightId;
