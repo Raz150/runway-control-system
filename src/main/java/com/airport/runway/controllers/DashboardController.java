@@ -36,6 +36,6 @@ public class DashboardController {
         model.addAttribute("flights", flights);
 
         // Return the view name (Thymeleaf template or JSP)
-        return "dashboard/dashboard";  // View name for the dashboard page
+        return "dashboard";  // View name for the dashboard page
     }
 }

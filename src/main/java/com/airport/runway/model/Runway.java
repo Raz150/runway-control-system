@@ -34,6 +34,7 @@ public class Runway {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
+    
 
      public List<Flight> getFlights() {
         if (flights == null) {
