@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<!-- Background Video -->
+<div class="video-background">
+  <video autoplay muted loop id="bg-video">
+    <source src="/background.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<!-- Welcome Section -->
+<div class="welcome-section">
+  <h1>Airplane Management System</h1>
+  <p>DASHBOARD</p>
+</div>
+
+<!-- Dashboard Content -->
+<div class="dashboard-container">
+  <div class="row">
+    <!-- Runway Availability -->
+    <div class="status-box">
+      <h2>Runway Availability</h2>
+      <p><strong>Total Runways:</strong> <span th:text="${availableRunways.size()}">10</span></p>
+      <p><strong>Free Runways:</strong> <span th:text="${#numbers.formatDecimal(freeRunways, 0, '##')}">3</span></p>
+      <p><strong>Occupied Runways:</strong> <span th:text="${#numbers.formatDecimal(occupiedRunways, 0, '##')}">7</span></p>
+      <p><strong>Next Free Runway:</strong> <span th:text="${nextFreeRunway.runwayId}">Runway 4</span></p>
+    </div>
+
+    <!-- Runway Map -->
+    <div class="status-box">
+      <h2>Runway Map</h2>
+      <table>
+        <tr>
+          <th>Runway ID</th>
+          <th>Status</th>
+        </tr>
+        <tr th:each="runway : ${availableRunways}">
+          <td th:text="${runway.runwayId}">Runway 1</td>
+          <td th:text="${runway.isAvailable ? 'Free' : 'Occupied'}">Free</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Flight History -->
+  <div class="status-box">
+    <h2>Flight History</h2>
+    <table>
+      <tr>
+        <th>Plane ID</th>
+        <th>Status</th>
+        <th>Time</th>
+        <th>Runway</th>
+      </tr>
+      <tr th:each="flight : ${flights}">
+        <td th:text="${flight.plane.planeId}">Plane 001</td>
+        <td th:text="${flight.flightStatus}">Landed</td>
+        <td th:text="${flight.arrivalTime}">08:32 AM</td>
+        <td th:text="${flight.runway.runwayId}">Runway 3</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
