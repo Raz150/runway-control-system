@@ -25,9 +25,11 @@ public class RunwaySeeder implements CommandLineRunner {
 
         for (int i = 1; i <= 5; i++){
             Runway runway = new Runway();
-            runway.setAvailable(random.nextBoolean());
+            //runway.setAvailable(random.nextBoolean());
+            runway.setAvailable(true);
             runwayRepository.save(runway);
         }
+
 
 //        System.out.println("Initialized "+numRunway+" runways");
         System.out.println("Initialized random runways availability");
